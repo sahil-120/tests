@@ -12,8 +12,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ["Poppins", "sans-serif"],
-        body: ["Mukta", "sans-serif"],
+        heading: ["Space Grotesk", "Inter", "sans-serif"],
+        body: ["Inter", "Mukta", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

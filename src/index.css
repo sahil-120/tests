@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Mukta:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&family=Mukta:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,93 +6,170 @@
 
 @layer base {
   :root {
-    --background: 220 20% 97%;
-    --foreground: 220 25% 10%;
+    /* Light content area */
+    --background: 220 18% 96%;
+    --foreground: 220 30% 10%;
     --card: 0 0% 100%;
-    --card-foreground: 220 25% 10%;
+    --card-foreground: 220 30% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 220 25% 10%;
-    --primary: 220 70% 45%;
+    --popover-foreground: 220 30% 10%;
+
+    /* Brand colors — Nepal-inspired */
+    --primary: 226 70% 55%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 160 60% 45%;
+    --secondary: 158 60% 42%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 220 15% 92%;
-    --muted-foreground: 220 10% 45%;
-    --accent: 35 95% 55%;
+    --accent: 350 75% 52%;
     --accent-foreground: 0 0% 100%;
+
+    --muted: 220 14% 91%;
+    --muted-foreground: 220 12% 46%;
     --destructive: 0 80% 55%;
     --destructive-foreground: 0 0% 100%;
-    --border: 220 15% 88%;
-    --input: 220 15% 88%;
-    --ring: 220 70% 45%;
-    --radius: 0.75rem;
+    --border: 220 14% 88%;
+    --input: 220 14% 88%;
+    --ring: 226 70% 55%;
+    --radius: 0.875rem;
 
-    --nav-bg: 220 30% 18%;
-    --nav-foreground: 0 0% 95%;
-    --hero-from: 220 70% 45%;
-    --hero-to: 250 60% 50%;
-    --card-red: 0 75% 55%;
-    --card-green: 160 60% 45%;
-    --card-teal: 180 55% 42%;
-    --card-purple: 270 55% 55%;
-    --card-amber: 40 85% 50%;
-    --card-navy: 220 60% 30%;
-    --countdown-bg: 220 35% 15%;
-    --success: 145 65% 42%;
-    --warning: 35 95% 55%;
-    --info: 200 80% 50%;
+    /* Dark navbar */
+    --nav-bg: 222 47% 11%;
+    --nav-foreground: 0 0% 96%;
+
+    /* Hero gradient */
+    --hero-from: 222 47% 14%;
+    --hero-to: 250 45% 22%;
+
+    /* Card colors */
+    --card-red: 0 72% 52%;
+    --card-green: 158 60% 42%;
+    --card-teal: 183 56% 38%;
+    --card-purple: 270 56% 52%;
+    --card-amber: 38 88% 48%;
+    --card-navy: 222 58% 28%;
+    --card-pink: 340 68% 52%;
+    --card-blue: 210 75% 50%;
+
+    --countdown-bg: 222 47% 13%;
+    --success: 142 65% 40%;
+    --warning: 38 88% 48%;
+    --info: 204 80% 48%;
   }
 
-  * {
-    @apply border-border;
-  }
+  * { @apply border-border; }
 
   body {
-    @apply bg-background text-foreground font-body antialiased;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', 'Mukta', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
   }
 }
 
 @layer components {
-  .nav-gradient {
-    background: linear-gradient(135deg, hsl(var(--nav-bg)), hsl(220 35% 22%));
+  /* Glassmorphism Navbar */
+  .navbar-glass {
+    background: hsl(var(--nav-bg));
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 4px 32px rgba(0,0,0,0.3);
   }
+
+  /* Hero section */
   .hero-gradient {
-    background: linear-gradient(135deg, hsl(var(--hero-from)), hsl(var(--hero-to)));
+    background: linear-gradient(135deg, hsl(var(--hero-from)) 0%, hsl(var(--hero-to)) 100%);
+    position: relative;
+    overflow: hidden;
   }
+  .hero-gradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse at 20% 50%, hsl(226 70% 55% / 0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, hsl(350 75% 52% / 0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* Glass Card */
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-sm border border-white/60 rounded-2xl shadow-sm;
+  }
+
+  /* Standard card hover */
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
   }
+
+  /* Quick Access Cards */
   .quick-card {
-    @apply rounded-xl p-5 flex flex-col items-center justify-center gap-2 cursor-pointer card-hover text-center min-h-[120px];
+    @apply rounded-2xl p-5 flex flex-col items-center justify-center gap-2.5 cursor-pointer card-hover text-center min-h-[110px] relative overflow-hidden;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
-  .quick-card-red { background: linear-gradient(135deg, hsl(0 75% 55%), hsl(0 70% 48%)); }
-  .quick-card-green { background: linear-gradient(135deg, hsl(145 60% 42%), hsl(145 55% 35%)); }
-  .quick-card-teal { background: linear-gradient(135deg, hsl(180 55% 42%), hsl(180 50% 35%)); }
-  .quick-card-purple { background: linear-gradient(135deg, hsl(270 55% 55%), hsl(270 50% 45%)); }
-  .quick-card-amber { background: linear-gradient(135deg, hsl(40 85% 50%), hsl(35 80% 42%)); }
-  .quick-card-navy { background: linear-gradient(135deg, hsl(220 60% 30%), hsl(220 55% 22%)); }
-  .quick-card-pink { background: linear-gradient(135deg, hsl(340 70% 55%), hsl(340 65% 45%)); }
+  .quick-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0);
+    transition: background 0.2s;
+  }
+  .quick-card:hover::after { background: rgba(255,255,255,0.08); }
+  .quick-card:hover { transform: translateY(-4px) scale(1.03); }
+
+  .quick-card-red    { background: linear-gradient(135deg, hsl(0 72% 52%), hsl(355 70% 44%)); box-shadow: 0 8px 24px hsl(0 72% 52% / 0.3); }
+  .quick-card-green  { background: linear-gradient(135deg, hsl(158 60% 42%), hsl(158 55% 34%)); box-shadow: 0 8px 24px hsl(158 60% 42% / 0.3); }
+  .quick-card-teal   { background: linear-gradient(135deg, hsl(183 56% 38%), hsl(183 52% 30%)); box-shadow: 0 8px 24px hsl(183 56% 38% / 0.3); }
+  .quick-card-purple { background: linear-gradient(135deg, hsl(270 56% 52%), hsl(270 52% 42%)); box-shadow: 0 8px 24px hsl(270 56% 52% / 0.3); }
+  .quick-card-amber  { background: linear-gradient(135deg, hsl(38 88% 48%), hsl(35 85% 40%)); box-shadow: 0 8px 24px hsl(38 88% 48% / 0.3); }
+  .quick-card-navy   { background: linear-gradient(135deg, hsl(222 58% 28%), hsl(222 55% 20%)); box-shadow: 0 8px 24px hsl(222 58% 28% / 0.3); }
+  .quick-card-pink   { background: linear-gradient(135deg, hsl(340 68% 52%), hsl(340 65% 44%)); box-shadow: 0 8px 24px hsl(340 68% 52% / 0.3); }
+  .quick-card-blue   { background: linear-gradient(135deg, hsl(210 75% 50%), hsl(210 72% 42%)); box-shadow: 0 8px 24px hsl(210 75% 50% / 0.3); }
+
+  /* Countdown Box */
   .countdown-box {
-    background: hsl(var(--countdown-bg));
-    @apply rounded-2xl p-6;
+    background: linear-gradient(135deg, hsl(var(--countdown-bg)), hsl(240 40% 16%));
+    @apply rounded-2xl p-6 border border-white/5;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.05);
   }
+
+  /* Quiz Options */
   .quiz-option {
-    @apply w-full text-left p-4 rounded-xl border-2 border-border bg-card transition-all duration-200 hover:border-primary hover:bg-primary/5 cursor-pointer;
+    @apply w-full text-left p-4 rounded-xl border-2 border-border bg-card transition-all duration-200 hover:border-primary hover:bg-primary/5 hover:shadow-md cursor-pointer font-medium;
   }
-  .quiz-option-selected {
-    @apply border-primary bg-primary/10;
-  }
-  .quiz-option-correct {
-    @apply border-green-500 bg-green-50;
-  }
-  .quiz-option-wrong {
-    @apply border-red-500 bg-red-50;
-  }
-  .typing-char-correct { @apply text-green-600; }
-  .typing-char-wrong { @apply text-red-500 bg-red-100 rounded; }
+  .quiz-option-selected { @apply border-primary bg-primary/8 shadow-md; }
+  .quiz-option-correct  { @apply border-green-500 bg-green-50 shadow-md; }
+  .quiz-option-wrong    { @apply border-red-500 bg-red-50 shadow-md; }
+
+  /* Typing practice */
+  .typing-char-correct { @apply text-green-600 font-medium; }
+  .typing-char-wrong   { @apply text-red-500 bg-red-100 rounded; }
   .typing-char-current { @apply border-b-2 border-primary; }
+
+  /* Stat pills */
+  .stat-pill {
+    @apply flex flex-col items-center justify-center p-4 rounded-2xl bg-white border border-border shadow-sm;
+  }
+
+  /* Section headings */
+  .section-heading {
+    @apply text-xl font-heading font-bold text-foreground flex items-center gap-2 mb-4;
+  }
+
+  /* Animate fade-in */
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease both;
+  }
 }
 
 @layer utilities {
   .text-balance { text-wrap: balance; }
+  .font-heading { font-family: 'Space Grotesk', 'Inter', sans-serif; }
+  .font-body    { font-family: 'Inter', 'Mukta', sans-serif; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }

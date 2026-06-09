@@ -4,6 +4,7 @@ import Admin from './pages/Admin';
 import { AdminGuard } from './components/AdminGuard';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Layout from "@/components/Layout";
@@ -17,7 +18,6 @@ import Syllabus from "./pages/Syllabus";
 import TypingPractice from "./pages/TypingPractice";
 import Notes from "./pages/Notes";
 import Downloads from "./pages/Downloads";
-import Portfolio from "./pages/Portfolio";
 import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
 import { Navigate } from "react-router-dom";
@@ -95,42 +95,43 @@ const AppContent = () => {
       {showLoading && <NepalLoadingScreen onComplete={() => setShowLoading(false)} />}
       
       <div style={{ display: showLoading ? 'none' : 'block' }}>
-        <Routes>
-          <Route 
-            path="/admin" 
-            element={
-              <AdminGuard>
-                <Admin />
-              </AdminGuard>
-            } 
-          />
-          <Route
-            path="/admin-panel"
-            element={
-              <CloudAdminGuard>
-                <AdminPanel />
-              </CloudAdminGuard>
-            }
-          />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/portfolio" element={<Portfolio />} />
-          <Route element={<Layout />}>
-            <Route path="/" element={<Index />} />
-            <Route path="/practice" element={<ProtectedRoute><Practice /></ProtectedRoute>} />
-            <Route path="/quiz/:category/:setId?" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
-            <Route path="/old-is-gold" element={<ProtectedRoute><OldIsGold /></ProtectedRoute>} />
-            <Route path="/online-exam" element={<ProtectedRoute><OnlineExam /></ProtectedRoute>} />
-            <Route path="/subjective" element={<ProtectedRoute><SubjectiveQuestions /></ProtectedRoute>} />
-            <Route path="/dashboard" element={<Navigate to="/" replace />} />
-            <Route path="/leaderboard" element={<ProtectedRoute><Leaderboard /></ProtectedRoute>} />
-            <Route path="/syllabus" element={<Syllabus />} />
-            <Route path="/typing" element={<TypingPractice />} />
-            <Route path="/notes" element={<Notes />} />
-            <Route path="/downloads" element={<Downloads />} />
-            <Route path="/daily-mcq" element={<DailyMCQPage />} />
-          </Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route 
+              path="/admin" 
+              element={
+                <AdminGuard>
+                  <Admin />
+                </AdminGuard>
+              } 
+            />
+            <Route
+              path="/admin-panel"
+              element={
+                <CloudAdminGuard>
+                  <AdminPanel />
+                </CloudAdminGuard>
+              }
+            />
+            <Route path="/auth" element={<Auth />} />
+            <Route element={<Layout />}>
+              <Route path="/" element={<Index />} />
+              <Route path="/practice" element={<ProtectedRoute><Practice /></ProtectedRoute>} />
+              <Route path="/quiz/:category/:setId?" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
+              <Route path="/old-is-gold" element={<ProtectedRoute><OldIsGold /></ProtectedRoute>} />
+              <Route path="/online-exam" element={<ProtectedRoute><OnlineExam /></ProtectedRoute>} />
+              <Route path="/subjective" element={<ProtectedRoute><SubjectiveQuestions /></ProtectedRoute>} />
+              <Route path="/dashboard" element={<Navigate to="/" replace />} />
+              <Route path="/leaderboard" element={<ProtectedRoute><Leaderboard /></ProtectedRoute>} />
+              <Route path="/syllabus" element={<Syllabus />} />
+              <Route path="/typing" element={<TypingPractice />} />
+              <Route path="/notes" element={<Notes />} />
+              <Route path="/downloads" element={<Downloads />} />
+              <Route path="/daily-mcq" element={<DailyMCQPage />} />
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </AnimatePresence>
       </div>
     </>
   );

@@ -4,6 +4,7 @@ import {
   Printer, FileText, Database, Presentation, 
   Cpu, Monitor, GitBranch
 } from "lucide-react";
+import { PageTransition } from "@/components/PageTransition";
 
 const SubjectiveQuestions = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -231,7 +232,7 @@ const SubjectiveQuestions = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 py-8">
+    <PageTransition className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 py-8">
       <div className="container mx-auto px-4 max-w-5xl">
         
         {/* Header */}
@@ -422,7 +423,7 @@ const SubjectiveQuestions = () => {
           }
         }
       `}</style>
-    </div>
+    </PageTransition>
   );
 };
 

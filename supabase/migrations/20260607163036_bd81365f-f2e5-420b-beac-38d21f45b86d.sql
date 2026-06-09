@@ -33,7 +33,7 @@ AS $$
   ORDER BY total_score DESC, attempts DESC, full_name ASC
 $$;
 
--- 3. Seed the first admin (Dhiraj Shahi — the most active tester).
+-- 3. Seed the first admin (Amrita Gupta — the most active tester).
 --    Idempotent thanks to the unique (user_id, role) constraint.
 INSERT INTO public.user_roles (user_id, role)
 VALUES ('053345d7-3936-4400-9b62-06120c61a607', 'admin')
